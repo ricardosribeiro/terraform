@@ -14,7 +14,7 @@ provider "aws" {
       tags = {
     owner = "Ricardo Carvalhaes Ribeiro",
     owner_email = "ricardo.sribeiro@outlook.com",
-    purpose = "Curso Terraform Udemy"
+    pourpose = "Curso Terraform Udemy"
   }
   }
 }
