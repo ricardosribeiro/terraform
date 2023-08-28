@@ -8,6 +8,6 @@ resource "aws_s3_bucket" "bucket_with_folders" {
 
 resource "aws_s3_object" "bucket_folder" {
   bucket = aws_s3_bucket.bucket_with_folders.id
-  key = "folder/subfolder"
-  acl = "private"
+  key = var.bucket_folder_structure
+  acl = var.bucket_acl
 }
