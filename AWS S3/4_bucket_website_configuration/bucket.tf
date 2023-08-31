@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "bucket_website_configuration" {
+resource "aws_s3_bucket" "bucket_website" {
   bucket        = var.bucket_name
   force_destroy = true
   tags = {
@@ -7,7 +7,7 @@ resource "aws_s3_bucket" "bucket_website_configuration" {
 }
 
 resource "aws_s3_bucket_public_access_block" "public_access" {
-  bucket = aws_s3_bucket.bucket_website_configuration.id
+  bucket = aws_s3_bucket.bucket_website.id
 
   block_public_acls       = false
   block_public_policy     = false
@@ -16,14 +16,14 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 }
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
-  bucket = aws_s3_bucket.bucket_website_configuration.id
+  bucket = aws_s3_bucket.bucket_website.id
   policy = data.aws_iam_policy_document.policy_document.json
 }
 
 data "aws_iam_policy_document" "policy_document" {
   statement {
     actions   = ["s3:GetObject"]
-    resources = [aws_s3_bucket.bucket_website_configuration.arn, "${aws_s3_bucket.bucket_website_configuration.arn}/*"]
+    resources = [aws_s3_bucket.bucket_website.arn, "${aws_s3_bucket.bucket_website.arn}/*"]
     effect    = "Allow"
     principals {
       type        = "AWS"
@@ -32,8 +32,8 @@ data "aws_iam_policy_document" "policy_document" {
   }
 }
 
-resource "aws_s3_bucket_website_configuration" "bucket_website_configuration" {
-  bucket = aws_s3_bucket.bucket_website_configuration.id
+resource "aws_s3_bucket_website_configuration" "website_configuration" {
+  bucket = aws_s3_bucket.bucket_website.id
 
   index_document {
     suffix = "index.html"
