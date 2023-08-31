@@ -9,3 +9,9 @@ variable "aws_s3_bucket_arn" {
   type        = string
   default     = "default"
 }
+
+variable "lab" {
+  description = "Proposito do laboratório"
+  type        = string
+  default     = "Criação de um bucket com acesso público"
+}

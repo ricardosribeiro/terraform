@@ -3,3 +3,9 @@ variable "bucket_name" {
   type        = string
   default     = "default"
 }
+
+variable "lab" {
+  description = "Proposito do laboratório"
+  type        = string
+  default     = "Criação de um bucket com acesso público"
+}

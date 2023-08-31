@@ -3,6 +3,7 @@ resource "aws_s3_bucket" "bucket_with_public_access" {
   force_destroy = true
   tags = {
     name = var.bucket_name
+    lab  = var.lab
   }
 }
 
@@ -30,7 +31,7 @@ data "aws_iam_policy_document" "policy_document" {
       identifiers = ["*"]
     }
     actions   = ["s3:GetObject"]
-    resources = [aws_s3_bucket.bucket_with_public_access.arn, "${aws_s3_bucket.bucket_with_public_access.arn}/*",]
+    resources = [aws_s3_bucket.bucket_with_public_access.arn, "${aws_s3_bucket.bucket_with_public_access.arn}/*", ]
     effect    = "Allow"
   }
 }

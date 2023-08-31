@@ -4,5 +4,6 @@ resource "aws_s3_bucket" "bucket_website" {
   force_destroy = true
   tags = {
     name = var.bucket_name
+    lab  = var.lab
   }
 }

@@ -11,11 +11,11 @@ terraform {
 provider "aws" {
   region = "us-east-1"
   default_tags {
-      tags = {
-    owner = "Ricardo Carvalhaes Ribeiro",
-    owner_email = "ricardo.sribeiro@outlook.com",
-    pourpose = "Curso Terraform Udemy"
-  }
+    tags = {
+      owner       = "Ricardo Carvalhaes Ribeiro",
+      owner_email = "ricardo.sribeiro@outlook.com",
+      pourpose    = "Curso Terraform Udemy"
+    }
   }
 }
 
