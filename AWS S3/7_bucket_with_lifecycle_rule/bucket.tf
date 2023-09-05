@@ -15,7 +15,7 @@ resource "aws_s3_bucket" "bucket_with_lifecycle" {
 
 # 2 - Create Lifecycle rule with transition configurations
 # # 2.1 - Storage Classes: [GLACIER, STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, DEEP_ARCHIVE, GLACIER_IR]
-resource "aws_s3_bucket_lifecycle_configuration" "lifecycle_config_it" {
+resource "aws_s3_bucket_lifecycle_configuration" "lifecycle_config" {
   bucket = aws_s3_bucket.bucket_with_lifecycle.id
 
   rule {
