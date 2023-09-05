@@ -2,7 +2,7 @@ resource "aws_s3_bucket" "s3_bucket_with_acl" {
   bucket        = "ricardocr-bucket-with-acl"
   force_destroy = true
   tags = {
-    name = "ricardocr-bucket-with-acl"
+    lab = "Criar um Bucket com ACL"
   }
 }
 

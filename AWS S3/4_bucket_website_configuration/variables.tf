@@ -7,5 +7,5 @@ variable "bucket_name" {
 variable "lab" {
   description = "Proposito do laboratório"
   type        = string
-  default     = "Criação de um bucket com acesso público"
+  default     = "Criação de um bucket para hospedagem de sites"
 }

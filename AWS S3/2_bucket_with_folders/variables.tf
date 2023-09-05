@@ -1,7 +1,7 @@
 variable "bucket_name" {
   description = "Nome do Bucket"
   type        = string
-  default     = "default"
+  default     = "ricardocr-bucket-with-folders"
 }
 
 variable "bucket_acl" {

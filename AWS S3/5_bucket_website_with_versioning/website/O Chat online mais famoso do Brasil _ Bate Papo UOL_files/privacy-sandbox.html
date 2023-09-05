@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Sandbox v1-2</title>
+  <meta http-equiv="origin-trial" content="A93PtKzu/H9gprLA/WHGJQAN46T3nrlpR1f7IcC8M3qRLtigFtGKiul3E6crUG7Hz/uhmYK/PUWaEsNQPW5Q+gsAAACAeyJvcmlnaW4iOiJodHRwczovL3VvbC5jb20uYnI6NDQzIiwiZmVhdHVyZSI6IlByaXZhY3lTYW5kYm94QWRzQVBJcyIsImV4cGlyeSI6MTY5NTE2Nzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0="></head>
+  <body>
+    <script>
+      let listTopics = [];
+      function addTrialToken(tokenContents) {
+        const tokenElement = document.createElement("meta");
+        tokenElement.httpEquiv = "origin-trial";
+        tokenElement.content = tokenContents;
+        document.head.appendChild(tokenElement);
+      }
+
+      addTrialToken(
+        "A93PtKzu/H9gprLA/WHGJQAN46T3nrlpR1f7IcC8M3qRLtigFtGKiul3E6crUG7Hz/uhmYK/PUWaEsNQPW5Q+gsAAACAeyJvcmlnaW4iOiJodHRwczovL3VvbC5jb20uYnI6NDQzIiwiZmVhdHVyZSI6IlByaXZhY3lTYW5kYm94QWRzQVBJcyIsImV4cGlyeSI6MTY5NTE2Nzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0="
+      );
+      let url = window.location.ancestorOrigins[0] || "";
+      async function getTopics() {
+        try {
+          if (
+            "browsingTopics" in document &&
+            document.featurePolicy.allowsFeature("browsing-topics")
+          ) {
+            const topics = await document.browsingTopics();
+            let returnedTopics = [];
+
+            returnedTopics = topics;
+
+            if (returnedTopics.length > 0) {
+              returnedTopics.forEach((topicObject) => {
+                listTopics.push(topicObject.topic);
+              });
+              setInterval(() => {
+                window.parent.postMessage(
+                  "offer-admanager/topics/" + listTopics.toString(),
+                  "*"
+                );
+              }, 250);
+            } else {
+              setInterval(() => {
+                window.parent.postMessage(
+                  "offer-admanager/topics/no-topic",
+                  "*"
+                );
+              }, 250);
+            }
+
+            fetch(
+              "https://udr.uol.com.br/store?scope=privsb&parse=base64&data=" +
+                encodeURIComponent(
+                  btoa(
+                    JSON.stringify({
+                      topics: returnedTopics,
+                      referer: url,
+                    })
+                  )
+                ),
+              { credentials: "include" }
+            );
+          } else {
+            console.log("Topics não é suportado por este browser");
+            setInterval(() => {
+              window.parent.postMessage("offer-admanager/topics/no-topic", "*");
+            }, 250);
+          }
+        } catch (error) {
+          console.log("Error:", error);
+          setInterval(() => {
+            window.parent.postMessage("offer-admanager/topics/no-topic", "*");
+          }, 250);
+        }
+      }
+
+      getTopics();
+    </script>
+  
+
+</body></html>

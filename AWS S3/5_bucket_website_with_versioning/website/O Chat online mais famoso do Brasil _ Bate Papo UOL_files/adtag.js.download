@@ -1,0 +1,70 @@
+const iframe = document.querySelector("#fresh8");
+window.addEventListener("message", function(e) {
+  if (iframe) {
+    if (e.data.type === "f8_size") {
+      const contentHeight = e.data.contentHeight;
+      if (iframe.height !== contentHeight) {
+        iframe.height = contentHeight;
+        requestAnimationFrame(() => {
+          window.dispatchEvent(new Event("resize"));
+        });
+      }
+    }
+
+    if (e.data.type === "f8_no_events") {
+      iframe.style.display = "none";
+      iframe.height = 0;
+      iframe.width = 0;
+
+      if (window.frameElement) {
+        window.frameElement.style.display = "none";
+
+        if (window.inApp) {
+          if (
+            window.frameElement.parentNode &&
+            window.frameElement.parentNode.parentNode &&
+            window.frameElement.parentNode.parentNode.parentNode
+          ) {
+            window.frameElement.parentNode.parentNode.parentNode.style.display =
+              "none";
+          }
+        } else {
+          if (
+            window.frameElement.parentNode &&
+            window.frameElement.parentNode.parentNode
+          ) {
+            window.frameElement.parentNode.parentNode.style.display = "none";
+          }
+        }
+      }
+    }
+
+    if (e.data.type === "f8_failed_loading") {
+      iframe.style.display = "none";
+      iframe.height = 0;
+      iframe.width = 0;
+
+      if (window.frameElement) {
+        window.frameElement.style.display = "none";
+
+        if (window.inApp) {
+          if (
+            window.frameElement.parentNode &&
+            window.frameElement.parentNode.parentNode &&
+            window.frameElement.parentNode.parentNode.parentNode
+          ) {
+            window.frameElement.parentNode.parentNode.parentNode.style.display =
+              "none";
+          }
+        } else {
+          if (
+            window.frameElement.parentNode &&
+            window.frameElement.parentNode.parentNode
+          ) {
+            window.frameElement.parentNode.parentNode.style.display = "none";
+          }
+        }
+      }
+    }
+  }
+});
